@@ -25,7 +25,7 @@
 |:---|:---|:---|
 | <ul><li>"/home"</li></ul> | <b><u>HOME/CLIENT PAGE</u></b> | <ul><li>"http://localhost:8080/api/v0-1/home"</li></ul> |
 | <ul><li>"/contacts/new"</li></ul> | <b><u>CREATE</u></b> | <ul><li>"http://localhost:8080/api/v0-1/contacts/new"</li></ul> |
-| <ul><li>"/contacts/all"</li><li>"/contacts/find?id=\<id\>"</li></ul> | <b><u>READ</u></b> | <ul><li>"http://localhost:8080/api/v0-1/contacts/all"</li><li>"http://localhost:8080/api/v0-1/contacts/find?id=\<id\>"</li></ul> |
+| <ul><li>"/contacts/all"</li><li>"/contacts/find?id=\<id\>"</li></ul> | <b><u>READ</u></b> | <ul><li>"http://localhost:8080/api/v0-1/contacts/all"</li><li>"http://localhost:8080/api/v0-1/contacts/find?id=<id\>"</li></ul> |
 | <ul><li>"/"</li></ul> | <b><u>UPDATE</u></b> | <ul><li>"http://localhost:8080/api/v0-1/"</li></ul> |
 | <ul><li>"/"</li></ul> | <b><u>DELETE</u></b> | <ul><li>"http://localhost:8080/api/v0-1/"</li></ul> |
 
