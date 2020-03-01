@@ -13,13 +13,13 @@
 ***
 
 ### Client Page (Front-End) Homepage: <br>
-#### <b>http://localhost:\<Port\>/api/v0-1/home</b>
+#### <b>http://localhost:<Port\>/api/v0-1/home</b>
 
 ***
 
 <br><br>
 
-#### List of URL(http://localhost:<Port>/api/v0-1/) + URN (End-points), for Requests against an unstored array, that are currently available:
+#### List of URL(http://localhost:<Port\>/api/v0-1/) + URN (End-points), for Requests against an unstored array, that are currently available:
 
 | URN | Action on Array/DB | Full URI (Using some port, e.g. "8080") |
 |:---|:---|:---|
