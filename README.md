@@ -26,8 +26,8 @@
 | <ul><li>"/home"</li></ul> | <b><u>HOME/CLIENT PAGE</u></b> | <ul><li>"http://localhost:8080/api/v0-1/home"</li></ul> |
 | <ul><li>"/contacts/new"</li></ul> | <b><u>CREATE (POST)</u></b> | <ul><li>"http://localhost:8080/api/v0-1/contacts/new"</li></ul> |
 | <ul><li>"/contacts/all"</li><li>"/contacts/find?id=\<id\>"</li></ul> | <b><u>READ (GET)</u></b> | <ul><li>"http://localhost:8080/api/v0-1/contacts/all"</li><li>"http://localhost:8080/api/v0-1/contacts/find?id=<id\>"</li></ul> |
-| <ul><li>"/update?id=\<id\>"</li></ul> | <b><u>UPDATE (PUT)</u></b> | <ul><li>"http://localhost:8080/api/v0-1/update?id=\<id\>"</li></ul> |
-| <ul><li>"/deleteAll"</li><li>"/delete?id=\<id\>"</li></ul> | <b><u>DELETE</u></b> | <ul><li>"http://localhost:8080/api/v0-1/deleteAll"</li><li>"http://localhost:8080/api/v0-1/delete?id=\<id\>"</li></ul> |
+| <ul><li>"/update?id=\<id\>"</li></ul> | <b><u>UPDATE (PUT)</u></b> | <ul><li>"http://localhost:8080/api/v0-1/update?id=<id\>"</li></ul> |
+| <ul><li>"/deleteAll"</li><li>"/delete?id=<id\>"</li></ul> | <b><u>DELETE</u></b> | <ul><li>"http://localhost:8080/api/v0-1/deleteAll"</li><li>"http://localhost:8080/api/v0-1/delete?id=<id\>"</li></ul> |
 
 
 ##### POST/PUT/DELETE available via middleware.
