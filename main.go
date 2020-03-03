@@ -3,8 +3,7 @@ package main // Entry point, main func, packaged.
 // Modules
 import (
 	"encoding/json" // Data Type (json) Conversion/Parsing.
-	"fmt"
-	"log" // Error Logging.
+	"log"           // Error Logging.
 	"math/rand"
 	"net/http" // Basic REST API infrastructure.
 	"strconv"  // Data Type (string) Conversion/Parsing.
@@ -29,26 +28,31 @@ w.Write([]byte(fmt.Sprintf(`{"ID": %d, "Name": "%s", "Email": "%s", "Contact": %
 
 // Handler function/method, that staisfies Handler interface. Called on "/home" GET Request, (handles this request path).
 func homePage(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")           // Tell client json is sent back in response, so client understands it.
-	w.Write([]byte(fmt.Sprintf(`{"message": "Welcome home."}`))) // Print message to page.
+	w.Header().Set("Content-Type", "text/html") // Tell client json is sent back in response, so client understands it.
+	http.ServeFile(w, r, "index.html")
 }
 
 // Handler function/method, that staisfies Handler interface. Called on "/new" POST Request, (handles this request path). JSON Data to be sent in request body.
 func postNewContact(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json") // Tell client json is sent back in response, so client understands it.
 
-	decoder := json.NewDecoder(r.Body) // New decoder, that reads request, to decode JSON in the request body.
+	r.ParseForm() // Parses the request body in a key value map.
+	x := r.Form   // Store the parsed form.
 
-	var newContact Contact // Create new empty contact record.
-
-	// Decodes request body to be stored in 'newContact', and error handling if cannot be decoded.
-	err := decoder.Decode(&newContact)
-	if err != nil {
-		panic(err) // Stop current go-routine, to log error.
+	//decoder := json.NewDecoder(r.Body) // New decoder, that reads request, to decode JSON in the request body.
+	contactNumber, err := strconv.Atoi(x["contact"][0]) // Parse query string as Int.
+	if err != nil {                                     //Error: ID query string passed is not a number.
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(`{"message": "ID is not a number!"}`))
+		return
 	}
 
-	newContact.ID = rand.Intn(1000) // Assign random ID integer between 1 and 1000.
+	var newContact Contact
 
+	newContact.ID = rand.Intn(1000) // Assign random ID integer between 1 and 1000.
+	newContact.Name = x["name"][0]
+	newContact.Email = x["email"][0]
+	newContact.Contact = contactNumber
 	Contacts = append(Contacts, newContact) // Append new contact to current db of contacts.
 	json.NewEncoder(w).Encode(Contacts)     // Display full contacts db.
 	w.WriteHeader(http.StatusCreated)       // Respond with status 201, to indicate successful creation request.
@@ -200,7 +204,7 @@ func main() {
 	api.HandleFunc("", delete).Methods(http.MethodDelete) // localhost:8080/api/v0-1/
 	api.HandleFunc("", notFound)                          // localhost:8080/api/v0-1/
 
-	api.HandleFunc("/home", homePage).Methods(http.MethodGet)                           // localhost:8080/api/v0-1/home
+	api.HandleFunc("/contacts/home", homePage).Methods(http.MethodGet)                  // localhost:8080/api/v0-1/contacts/home
 	api.HandleFunc("/contacts/new", postNewContact).Methods(http.MethodPost)            // localhost:8080/api/v0-1/contacts/new
 	api.HandleFunc("/contacts/all", getAllContacts).Methods(http.MethodGet)             // localhost:8080/api/v0-1/contacts/all
 	api.HandleFunc("/contacts/find", getContact).Methods(http.MethodGet)                // localhost:8080/api/v0-1/contacts/find?id=<id>

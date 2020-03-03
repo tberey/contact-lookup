@@ -43,3 +43,4 @@
 |:---|:---|
 |Version 0.0.1 [2020-03-01]|<ul><li>Initial Commit.</li><li>Add "main.go" file.</li><li>Adds basic infrastructure and request methods, against the local unsaved sudo-databse</li><li>Add README.md</li></ul>|
 |Version 0.0.2 [2020-03-02]|<ul><li>Add three new request methods and accompanying handler functions: PUT, DELETE(x2)</li><li>Add new dir "Screenshots", and Add image files to new dir.</li><li>Update README.md</li></ul>|
+|Version 0.0.3 [2020-03-03]|<ul><li>Add front-end / client-side page, "index.html" (/api/v0-1/home).</li><li>Add POST Request from front-end, using in-page javascript, to create a new contact in db.</li><li>Adjust back-end to receive parameters from a POST request.</li><li>Update README.md</li></ul>|
