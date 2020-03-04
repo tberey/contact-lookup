@@ -43,16 +43,18 @@ func postNewContact(w http.ResponseWriter, r *http.Request) {
 	contactNumber, err := strconv.Atoi(x["contact"][0]) // Parse query string as Int.
 	if err != nil {                                     //Error: ID query string passed is not a number.
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(`{"message": "ID is not a number!"}`))
+		w.Write([]byte(`{"message": "Contact Number is not a number!"}`))
 		return
 	}
 
 	var newContact Contact
 
+	// Assign Request body data as new contact to be added to db.
 	newContact.ID = rand.Intn(1000) // Assign random ID integer between 1 and 1000.
 	newContact.Name = x["name"][0]
 	newContact.Email = x["email"][0]
 	newContact.Contact = contactNumber
+
 	Contacts = append(Contacts, newContact) // Append new contact to current db of contacts.
 	json.NewEncoder(w).Encode(Contacts)     // Display full contacts db.
 	w.WriteHeader(http.StatusCreated)       // Respond with status 201, to indicate successful creation request.
@@ -102,15 +104,22 @@ func putUpdateContact(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	decoder := json.NewDecoder(r.Body) // New decoder, that reads request, to decode JSON in the request body.
+	r.ParseForm() // Parses the request body in a key value map.
+	x := r.Form   // Store the parsed form.
 
-	var updateData Contact // Create new empty contact record.
-
-	// Decodes request body to be stored in 'updateData', and error handling if cannot be decoded.
-	err = decoder.Decode(&updateData)
-	if err != nil {
-		panic(err) // Stop current go-routine (break out), to log error.
+	//decoder := json.NewDecoder(r.Body) // New decoder, that reads request, to decode JSON in the request body.
+	contactNumber, err := strconv.Atoi(x["contact"][0]) // Parse query string as Int.
+	if err != nil {                                     //Error: ID query string passed is not a number.
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(`{"message": "Contact Number is not a number!"}`))
+		return
 	}
+
+	var updateData Contact
+
+	updateData.Name = x["name"][0]
+	updateData.Email = x["email"][0]
+	updateData.Contact = contactNumber
 
 	for index, contact := range Contacts { // Iterate through all contact records.
 		if contact.ID == intID { // Locate client specified id record.
@@ -121,6 +130,8 @@ func putUpdateContact(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(Contacts)                        // Encode into json string, and write as part of response 'w' sent.
 		}
 	}
+
+	w.WriteHeader(http.StatusAccepted) // Respond with status 201, to indicate successful creation request.
 }
 
 // Handler function/method, that staisfies Handler interface. Called on "/delete?id=<id>" DELETE Request, (handles this request path).
